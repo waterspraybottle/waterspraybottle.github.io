@@ -6,7 +6,10 @@ const FILES_TO_CACHE = [
   '/app.js',
   '/manifest.json',
   '/bottle.png',
-  '/spray.mp3'
+  '/spray1.mp3',
+  '/spray2.mp3',
+  '/spray3.mp3',
+  '/spray4.mp3'
 ];
 
 self.addEventListener('install', event => {
