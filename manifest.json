@@ -1,0 +1,15 @@
+{
+  "name": "Spray Bottle",
+  "short_name": "Spray",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#e0f7fa",
+  "theme_color": "#00bcd4",
+  "icons": [
+    {
+      "src": "bottle.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+} 
