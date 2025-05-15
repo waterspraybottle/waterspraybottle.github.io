@@ -7,6 +7,8 @@ const spraySounds = [
   document.getElementById('spray-sound-4')
 ];
 
+let lastEventWasTouch = false;
+
 function spray() {
   // Play a random sound
   const sound = spraySounds[Math.floor(Math.random() * spraySounds.length)];
@@ -33,7 +35,31 @@ function spray() {
   }
 }
 
-sprayBottle.addEventListener('click', spray);
+// Unlock audio on first user interaction (for iOS/Android)
+function unlockAudio() {
+  spraySounds.forEach(sound => {
+    sound.play().catch(() => {});
+    sound.pause();
+    sound.currentTime = 0;
+  });
+  window.removeEventListener('touchstart', unlockAudio);
+  window.removeEventListener('mousedown', unlockAudio);
+}
+window.addEventListener('touchstart', unlockAudio, { once: true });
+window.addEventListener('mousedown', unlockAudio, { once: true });
+
+sprayBottle.addEventListener('touchstart', function(e) {
+  lastEventWasTouch = true;
+  spray();
+  e.preventDefault(); // Prevent double tap zoom
+}, { passive: false });
+sprayBottle.addEventListener('click', function(e) {
+  if (lastEventWasTouch) {
+    lastEventWasTouch = false;
+    return;
+  }
+  spray();
+});
 
 // PWA: Register service worker
 if ('serviceWorker' in navigator) {
